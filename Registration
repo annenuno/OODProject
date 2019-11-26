@@ -1,0 +1,131 @@
+#include <iostream>
+using namespace std;
+
+//Function Prototypes
+int mainMenu(int&, string&, string& );// function prototype to call main menu
+int createAccount(int&, string&, string&);//fuction prototype to create Account
+int loginMenu(int&, string&, string&);// fuction prototype to call main menu..
+int mainMenuVal(int& , string&, string&);
+int value(int&, string&, string&);
+
+int main()
+{
+    int userPick=0;
+    string username;
+    string password;
+    mainMenu(userPick, username, password);
+
+}
+
+//User define function: Main Menu..
+int mainMenu(int &userPick , string &username, string &password)
+{
+
+    cout<<".......................\n";
+    cout<<"Please select 1 , 2 , 3 \n";
+    cout<<"1. login to your account\n";
+    cout<<"2. Create a new account\n";
+    cout<<"3. Quit";
+    cout<<".........................."<<endl;
+    cin>>userPick;
+    //for switch statement
+    value(userPick, username, password);
+    //for main menu
+    mainMenu(userPick , username, password);
+    
+    return(userPick);
+    
+}
+
+int mainMenuVal(int &userPick, string &username , string &password)//
+{
+
+    if(userPick<1 || userPick>3)
+    {
+        cout<<"Error- Invalid option selection.. Please Enter 1,2,3\n";
+        cout<<"Try Again";
+        mainMenu(userPick , username, password);
+    }
+return 0;
+    
+}
+
+//user Define function... Create an account..
+void createAccount(int &userPick, string &username, string &password)
+{
+    loginMenu(userPick, username, password);
+    cout<<"Enter username\n";
+    cin>>username;
+    cout<<"Enter password\n";
+    cin>>password;
+    cout<<"Your account is created sucessfully";
+    cout<<endl;
+    cout<<"Login to your Account\n\n";
+}
+
+  //User defined Fuction: call to login menu..
+
+int loginMenu(int &userPick,string &username,string &password)
+{
+
+        string username2, password2;
+
+        cout<<"Enter Username\n";
+        cin>>username2;
+        if(username2==username)
+   
+{
+    cout<<"Enter password\n";
+    
+    cin>>password2;
+    if(password2==password)
+    {
+        cout<<"login Sucessfull  \n";
+        mainMenu(userPick,username, password);
+    }
+    else if(password2!=password)
+    {
+        cout<<"Error: Invalid password\n";
+        cout<<"check your password\n"<<endl;
+        loginMenu(userPick,username,password);
+    }
+        else if(username2!=username)
+    {
+        cout<<"Error:Invalid username..\n";
+        cout<<"Check your username\n";
+        loginMenu(userPick,username,password);
+        cout<<endl;
+    }
+    
+}
+    else
+    {
+        cout<<"Unknown Error!";
+        cout<<endl;
+    }
+
+return (0);
+}
+
+int value(int &userPick, string &username, string &password )
+{
+    switch (userPick)
+    {
+        case 1:
+            userPick=mainMenu(userPick,username,password);
+            break;
+        case 2:
+            userPick=createAccount(userPick, username, password);
+            userPick=loginMenu(userPick, username, password);
+            break;
+        case 3:
+            cout<<endl;
+            exit (0);
+            break;
+        default:
+            cout<<"Internal Error";
+            break;
+    }
+    
+return 0;
+}
