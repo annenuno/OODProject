@@ -1,0 +1,77 @@
+
+
+
+#Group members:
+#Adwaita Ramachandran
+#Michael Boleware 
+#Ana Nuno
+
+
+// Group Project
+
+#include <iostream>
+using namespace std;
+
+// Utility function to validate the user-defined macro ratios
+double validateRatio(double ratio)
+{
+	while (ratio < 0 || ratio > 100.0)
+	{
+		cout << "Sorry, the value you entered is invalid, you must enter a value within the 0-100 range: ";
+		cin >> ratio;
+	}
+	return ratio;
+}
+
+int main()
+{
+	// Hold the number of calories per gram of carbs, proteins, and fats, respectively
+	const double CARBS = 4.0, PROTEINS = 4.0, FATS = 9.0;
+	double cals;											// Holds user-defined calories per day
+	// Holds user-defined ideal ratio for each macro
+	double carbRatio;
+	double proRatio;
+	double fatRatio;
+	// Holds generated grams per day for each macro
+	double carbGrams;
+	double proGrams;
+	double fatGrams;
+
+
+	// Get desired cals per day and ideal ratio from user
+	cout << "Welcome to Macro Calculator!\n\n";
+	cout << "Let's get started... \nHow many calories do you want to eat, per day? ";
+	cin >> cals;
+	while (cals < 0)
+	{
+		cout << "\nSorry, you must enter a non-negative value. \nHow many calories do you want to eat, per day? ";
+		cin >> cals;
+	}
+	cout << "\nGreat! Now, what is your ideal ratio? Keep in mind that \n" <<
+		"the federal dietary recommendations suggest 45-60% carbs, 25-35% fats, \nand the remainder from protein (Tip: For 50%, enter 50, etc.)\n";
+	cout << "Carbs: ";
+	cin >> carbRatio;
+	carbRatio = validateRatio(carbRatio);
+	cout << "Proteins: ";
+	cin >> proRatio;
+	proRatio = validateRatio(proRatio);
+	cout << "Fats: ";
+	cin >> fatRatio;
+	fatRatio = validateRatio(fatRatio);
+
+	// Convert ratios to decimal value
+	carbRatio = carbRatio / 100;
+	proRatio = proRatio / 100;
+	fatRatio = fatRatio / 100;
+
+	// Calculate the number of grams for each macro
+	carbGrams = (cals * carbRatio) / CARBS;
+	proGrams = (cals * proRatio) / PROTEINS;
+	fatGrams = (cals * fatRatio) / FATS;
+
+	// Display the number of grams for each macro
+	cout << "\nShoot for this many grams per day for each of your macros: \nCarbs: " << carbGrams << " grams" <<
+		"\nProteins: " << proGrams << " grams" << "\nFats: " << fatGrams << " grams\n\n";
+
+	return 0;
+}
