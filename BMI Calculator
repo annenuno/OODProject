@@ -1,0 +1,81 @@
+#Adwaita Ramachandran
+#Michael Boleware 
+#Ana Nuno
+
+
+#include<iostream>
+using namespace std;
+
+
+int main()
+
+{
+
+double BMI=0, weight, height;
+char choice;
+
+cout << "BMI Calculator" << endl;
+cout << "Choose metric or imperial system(m/i): ";
+cin >> choice;
+
+if (choice == 'i')
+{
+cout << "Enter height in inches :";
+cin >> height;
+
+cout << "Enter weight in pounds :";
+cin >> weight;
+
+BMI = weight * 703 / (height*height);
+
+}
+
+else if (choice == 'm')
+{
+cout << "Enter height in meters :";
+cin >> height;
+cout<< "Enter weight in kilograms :";
+cin >> weight;
+BMI = weight/ (height*height);
+
+}
+
+else
+{
+   cout<< "Invalid option. Please try again\n";
+   return 0;
+}
+
+
+if (BMI<10 || BMI > 40)
+    {
+    cout<<"\n\nAre you sure you entered the values to calculate BMI correctly? Run program again!";
+   
+    }
+   
+else  if (BMI>=25 && BMI<=30 )
+ {
+    cout<<"\n\nYou are somewhat overweight.";
+    cout << "Your BMI is " << BMI << endl;
+ }
+ 
+ else  if (BMI>30 && BMI<=40 )
+ {
+    cout<<"\n\nYou are overweight.";
+    cout << "Your BMI is " << BMI << endl;
+ }
+    else if (BMI<18.5 && BMI>=10)
+    {
+    cout<<"\n\nYou are considered underweight and possibly malnourished. ";
+    cout << "Your BMI is " << BMI << endl;
+    }
+    else if (BMI>18.5 && BMI <25)
+    {
+    cout<<"\n\nCongratulations! You are within a healthy weight range.";
+    cout << "Your BMI is " << BMI << endl;
+    }
+    else
+
+
+return 0;
+                        }
