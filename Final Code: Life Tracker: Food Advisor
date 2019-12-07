@@ -1,0 +1,435 @@
+//~THE CODE~
+//
+//
+//
+//Group members:
+//
+//Ana Nuno
+//Adwaita Ramachandran
+//Michael Boleware
+//
+//
+/*
+    Algortihm:
+      1. Display the main menu.
+      2. Validate selection.
+      3. If user picks 1:
+        3.a - Display a menu to login.
+        3.b - If user enters correctly then user gains access to bank account.
+            3.b.1 - User can select the BMI calculator tap.
+            3.b.2 - User can select the Macro Calculator tap.
+            3.b.3 - User can Quiz Time tap.
+            3.b.4 - User can quit the program.
+        3.c - If user enters incorrectly then user gets a warning.
+      4. If user picks 2:
+        4.a - Display message to user to create user name and password.
+        4.b - Redirects the user back to the main menu.
+      5. If user picks 3, then the program exits.
+ */
+ 
+ 
+#include <iostream>
+#include <stdlib.h>
+
+using namespace std;
+ 
+// FUNCTION PROTOTYPES:                          // LIST/DESCRIPTION OF THE FUNCTIONS:
+int websiteMainMenu(int&, string&, string&);         // 1. Displays the ATM main menu.
+int mainMenuVal(int&, string&, string&);         // 2. Validates the user's input from the ATM main menu.
+int createAccount(string&, string&);             // 3. Creates the user an account with user name & password.
+int loginMenu(int&, string&, string&);           // 4. Displays the login menu & validates the user's account info.
+int userPickVal(int&, string&, string&);         // 5. Main menu input validation, switch function, & function calls.
+int accessMenu(int&, float&, float&, float&);    // 6. Displays the account action menu after account login success.
+int accessMenuVal(int&, float&, float&, float&); // 7. Validates the user's input in the account menu selection.
+double BMI(float&, float&, float&);           // 8. Requests & calculates the deposit amount in the user's account.
+float macro(float&, float&, float&);          // 9. Requests & calculates the withdraw amount in the user's account.
+ 
+//Variables
+double weight, height;
+char choice;
+
+
+// MAIN FUNCTION
+int main()
+{
+    // Initialized variables.
+    int userPick = 0;
+    string username;
+    string password;
+ 
+    // Function call: Displays the main menu selections.
+    websiteMainMenu(userPick, username, password);
+ 
+}
+ 
+// 1. Displays the Life Tracker main menu.
+int websiteMainMenu(int &userPick, string &username, string &password)
+{
+        cout << "-------------------------------------------\n";
+        cout << "       Life Tracker: Food Advisor\n";
+        cout << "-------------------------------------------\n" << endl;
+        cout << "Please select an option from the menu below: \n";
+        cout << "1. Login\n";
+        cout << "2. Create a New Account\n";
+        cout << "3. Quit\n" << endl;
+        cout << "Please select your choice: ";
+        cin >> userPick;
+ 
+        // Function calls: Validates user's input.
+        mainMenuVal(userPick, username, password);
+        userPickVal(userPick, username, password);
+ 
+            return userPick;
+}
+ 
+// 2. Validates the user's input from the ATM main menu.
+int mainMenuVal(int &userPick, string &username, string &password)
+{
+    // Displays an error if userPick is not 1, 2, or 3.
+    // Directs the user back to the main menu.
+    while (userPick < 1 || userPick > 3)
+    {
+        cout << endl;
+        cout << "**ERROR** - Invalid option. Please enter 1, 2, or 3.\n" << endl;
+        userPick = websiteMainMenu(userPick, username, password);
+    }
+    return 0;
+}
+ 
+// 3. Creates the user an account with user name & password.
+int createAccount(string &username, string &password)
+{
+ 
+        cout << "-------------------------------------------\n";
+        cout << "             Create an Account\n";
+        cout << "-------------------------------------------\n" << endl;
+        cout << "Enter the user name of your choice: ";
+        cin >> username;
+        cout << "Enter a password of your choice: ";
+        cin >> password;
+        cout << "\nINFO: Your account has been created successfully!\n";
+        cout <<endl;
+ 
+    return 0;
+ 
+}
+ 
+// 4. Displays the login menu & validates the user's account info.
+int loginMenu(int &userPick, string &username, string &password)
+{
+        // Initialized variables.
+        string username2;
+        string password2;
+        float BMICalculator = 0.00;
+        float MacroCalculatorCode = 0.00;
+        float QuizTime = 0.00;
+ 
+        // Displays the menu.
+        cout << "-------------------------------------------\n";
+        cout << "             Log into your Account\n";
+        cout << "-------------------------------------------\n" << endl;
+        cout << "Enter your user name: ";
+        cin >> username2;
+ 
+            // If user name matches, a password will be prompted.
+            if (username2 == username)
+            {
+                cout << "\nEnter your Password: ";
+                cin >> password2;
+ 
+                    // If password matches, displays the account action menu.
+                    if (password2 == password)
+                        {
+                            cout << "\nLogin Successful!" << endl;
+                            int userChoice = 0;
+                            accessMenu(userChoice, BMICalculator, MacroCalculatorCode, QuizTime);
+                        }
+ 
+                    // If password does not match, then displays an error message.
+                    // The user will be directed back to the main menu.
+                    else if (password2!= password)
+                        {
+                            cout << "\n";
+                            cout << "ERROR: Incorrect Password!\n";
+                            cout << "\n";
+                            websiteMainMenu(userPick, username, password);
+                        }
+ 
+                    // TEST ERROR MESSAGE.
+                    else
+                        {
+                            cout << "INTERNAL ERROR!";
+                        }
+            }
+ 
+            // If user name does not match, then displays an error message.
+            // User will be directed back to the main menu.
+            else if (username2 != username)
+                {
+                    cout << "\n";
+                    cout << "ERROR: Incorrect User name!\n";
+                    cout << "\n";
+                    websiteMainMenu(userPick, username, password);
+                }
+            // TEST ERROR MESSAGE.
+            else
+                {
+                    cout << "internal error 2";
+                }
+ 
+        return 0;
+}
+ 
+// 5. Main menu input validation, switch function, & function calls.
+int userPickVal(int &userPick, string &username, string &password)
+{
+    // Validates the user's input & executes function calls.
+    switch (userPick)
+    {
+        // Case 1 - Displays the login menu.
+        case 1:
+            loginMenu(userPick, username, password);
+            break;
+ 
+        // Case 2 - Creates a user name & password.
+        case 2:
+            createAccount(username, password);
+            websiteMainMenu(userPick, username, password);
+            break;
+ 
+        // Case 3 - The program exits.
+        case 3:
+            cout << "\nThank you for using Life Tracker!\n";
+            exit(0);
+            break;
+ 
+        // TEST ERROR MESSAGE.
+        default:
+            cout << "INTERNAL ERROR" << endl;
+    }
+    return 0;
+}
+ 
+// 6. Displays the account action menu after account login success.
+int accessMenu(int &userChoice, float &BMICalculator, float &MacroCalculatorCode, float &QuizTime)
+{
+ 
+        cout << "-------------------------------------------\n";
+        cout << "                 Action Menu\n";
+        cout << "-------------------------------------------\n" << endl;
+        cout << "1. BMI Calculator\n";
+        cout << "2. Macro Calculator Code\n";
+        cout << "3. Quiz Time: Test Yoursel!\n";
+        cout << "4. Quit\n";
+        cout << "Enter your choice: ";
+        cin >> userChoice;
+        accessMenuVal(userChoice, BMICalculator, MacroCalculatorCode, QuizTime);
+ 
+            // Validates the user's input & executes function calls.
+            switch(userChoice)
+            {
+                // Case 1 - clicking the BMI Calculator.
+                case 1:
+                    BMICalculator = BMI(BMICalculator, MacroCalculatorCode, QuizTime);
+                    accessMenu(userChoice, BMICalculator, MacroCalculatorCode, QuizTime);
+                    break;
+ 
+                // Case 2 - clicking the macro calculator.
+                case 2:
+                    BMICalculator = macro(BMICalculator, MacroCalculatorCode, QuizTime);
+                    accessMenu(userChoice, BMICalculator, MacroCalculatorCode, QuizTime);
+                    break;
+ 
+                // Case 3 - clicking the Quiz Section Tab.
+                case 3:
+                    cout << "\nYour balance for your account is: $" << BMICalculator;
+                    cout << endl;
+                    accessMenu(userChoice, BMICalculator, MacroCalculatorCode, QuizTime);
+                    break;
+ 
+                 // Case 4 - The program exits.
+                case 4:
+                    userChoice = 0;
+                    cout << "\nThank you for using Life Tracker!";
+                    cout << endl;
+                    exit(0);
+                    break;
+ 
+                // TEST ERROR MESSAGE.
+                default:
+                    cout << "ERROR: Please enter a valid option from the menu!";
+ 
+            }
+ 
+        return 0;
+ 
+}
+ 
+// 7. Validates the user's input in the account menu selection.
+int accessMenuVal(int &userChoice, float &BMICalculator, float &MacroCalculatorCode, float &QuizTime)
+{
+    // If true, program displays an error message.
+    while (userChoice < 1 || userChoice > 4)
+    {
+        cout << endl;
+        cout << "**ERROR** - Invalid option. Please enter 1, 2, 3 , or 4.\n" << endl;
+        accessMenu(userChoice, BMICalculator, MacroCalculatorCode, QuizTime);
+    }
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+ 
+// 8. Requests & calculates the deposit amount in the user's account.
+double BMI(float &BMICalculator, double &BMI, double &weight, double &height, char &choice)
+{
+
+    cout << "BMI Calculator" << endl;
+    cout << "Choose metric or imperial system(m/i): ";
+    cin >> choice;
+
+    if (choice == 'i')
+    {
+        cout << "Enter height in inches :";
+        cin >> height;
+
+        cout << "Enter weight in pounds :";
+        cin >> weight;
+
+        BMI = weight * 703 / (height*height);
+
+    }
+
+    else if (choice == 'm')
+    {
+        cout << "Enter height in meters :";
+        cin >> height;
+        cout<< "Enter weight in kilograms :";
+        cin >> weight;
+        BMI = weight/ (height*height);
+
+    }
+
+    else
+    {
+       cout<< "Invalid option. Please try again\n";
+       return 0;
+    }
+
+
+    if (BMI<10 || BMI > 40)
+    {
+        cout<<"\n\nAre you sure you entered the values to calculate BMI correctly? Run program again!";
+       
+    }
+       
+    else  if (BMI>=25 && BMI<=30 )
+     {
+        cout<<"\n\nYou are somewhat overweight.";
+        cout << "Your BMI is " << BMI << endl;
+     }
+     
+     else  if (BMI>30 && BMI<=40 )
+     {
+        cout<<"\n\nYou are overweight.";
+        cout << "Your BMI is " << BMI << endl;
+     }
+        else if (BMI<18.5 && BMI>=10)
+        {
+            cout<<"\n\nYou are considered underweight and possibly malnourished. ";
+            cout << "Your BMI is " << BMI << endl;
+        }
+        else if (BMI>18.5 && BMI <25)
+        {
+            cout<<"\n\nCongratulations! You are within a healthy weight range.";
+            cout << "Your BMI is " << BMI << endl;
+        }
+        else
+
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+// Utility function to validate the user-defined macro ratios
+double validateRatio(double ratio)
+{
+    while (ratio < 0 || ratio > 100.0)
+    {
+        cout << "Sorry, the value you entered is invalid, you must enter a value within the 0-100 range: ";
+        cin >> ratio;
+    }
+    return ratio;
+}
+ 
+// 9. Requests & calculates the withdraw amount in the user's account.
+float macro(float &MacroCalculatorCode, double validationRatio)
+{
+    
+    // Hold the number of calories per gram of carbs, proteins, and fats, respectively
+    const double CARBS = 4.0, PROTEINS = 4.0, FATS = 9.0;
+    double cals;                                            // Holds user-defined calories per day
+    // Holds user-defined ideal ratio for each macro
+    double carbRatio;
+    double proRatio;
+    double fatRatio;
+    // Holds generated grams per day for each macro
+    double carbGrams;
+    double proGrams;
+    double fatGrams;
+
+
+    // Get desired cals per day and ideal ratio from user
+    cout << "Welcome to Macro Calculator!\n\n";
+    cout << "Let's get started... \nHow many calories do you want to eat, per day? ";
+    cin >> cals;
+    while (cals < 0)
+    {
+        cout << "\nSorry, you must enter a non-negative value. \nHow many calories do you want to eat, per day? ";
+        cin >> cals;
+    }
+    cout << "\nGreat! Now, what is your ideal ratio? Keep in mind that \n" <<
+        "the federal dietary recommendations suggest 45-60% carbs, 25-35% fats, \nand the remainder from protein (Tip: For 50%, enter 50, etc.)\n";
+    cout << "Carbs: ";
+    cin >> carbRatio;
+    carbRatio = validateRatio(carbRatio);
+    cout << "Proteins: ";
+    cin >> proRatio;
+    proRatio = validateRatio(proRatio);
+    cout << "Fats: ";
+    cin >> fatRatio;
+    fatRatio = validateRatio(fatRatio);
+
+    // Convert ratios to decimal value
+    carbRatio = carbRatio / 100;
+    proRatio = proRatio / 100;
+    fatRatio = fatRatio / 100;
+
+    // Calculate the number of grams for each macro
+    carbGrams = (cals * carbRatio) / CARBS;
+    proGrams = (cals * proRatio) / PROTEINS;
+    fatGrams = (cals * fatRatio) / FATS;
+
+    // Display the number of grams for each macro
+    cout << "\nShoot for this many grams per day for each of your macros: \nCarbs: " << carbGrams << " grams" <<
+        "\nProteins: " << proGrams << " grams" << "\nFats: " << fatGrams << " grams\n\n";
+
+    return 0;
+        }
+ 
+
